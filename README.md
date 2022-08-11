@@ -7,4 +7,8 @@ to run the existing docker image
 - docker run -ip 5000:5000 embedded-analytics
 
 to re-buld the docker image after doing some edits on the source code
-- docker build -t embedded analytics .
+- docker build -t embedded-analytics .
+
+test username and password
+- hello@gmail.com
+- user1234
