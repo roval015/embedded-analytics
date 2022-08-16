@@ -1,6 +1,8 @@
 {% extends "base.html" %} {% block title %} Home {% endblock %} {% block content
 %}
 <h1>Sample Embedded Analytics</h1>
+
+<!-- MICROSOFT BI EMBEDDING USING IFRAME -->
 <iframe
   title="sample - Page 1"
   width="1024"
@@ -9,6 +11,11 @@
   frameborder="0"
   allowfullscreen="true"
 ></iframe>
-<!-- <script type='text/javascript' src='https://prod-apnortheast-a.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 1000px; height: 827px;'><object class='tableauViz' width='1000' height='827' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-apnortheast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;ikavi' /><param name='name' value='EmbedTest&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /></object></div> -->
+
+<!-- TABLUEA EMBEDDING USING SCRIPT TAG -->
 <script type='text/javascript' src='https://prod-apnortheast-a.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 1366px; height: 795px;'><object class='tableauViz' width='1366' height='795' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-apnortheast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;ikavi' /><param name='name' value='EmbedTest&#47;ProfitDashboard' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /></object></div>
+
+
+<!-- TABLEAU EMBEDDING USING JAVASCRIPT API -->
+<div id="vizContainer"></div>
 {% endblock %}
