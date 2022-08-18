@@ -1,6 +1,8 @@
 {% extends "base.html" %} {% block title %} Home {% endblock %} {% block content
 %}
 <h1>Sample Embedded Analytics</h1>
+<!-- <button onclick="exportToPDF()">Export to PDF</button>
+<button id="exportImage">Export to Image</button> -->
 
 <!-- MICROSOFT BI EMBEDDING USING IFRAME -->
 <!-- <iframe
@@ -54,10 +56,45 @@
 <!-- tableau embedding v3 -->
 <!-- LINK FOR DOCUMENTATION: https://help.tableau.com/current/api/embedding_api/en-us/index.html -->
 
-<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+<!-- <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 
 <tableau-viz id="tableauViz"       
   src='https://public.tableau.com/views/EmbedTest_16606360562240/ProfitDashboard?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link'      
   device="mobile" toolbar="hidden" hide-tabs disable-url-actions>
-</tableau-viz>
+</tableau-viz> -->
+
+<script
+  type="text/javascript"
+  src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"
+></script>
+<script type="text/javascript">
+  var viz;
+
+  function initViz() {
+    var containerDiv = document.getElementById("vizContainer"),
+      url =
+        "https://public.tableau.com/views/EmbedTest_16606360562240/ProfitDashboard",
+      options = {
+        hideTabs: true,
+        onFirstInteraction: function () {
+          workbook = viz.getWorkbook();
+          activeSheet = workbook.getActiveSheet();
+        }
+      };
+
+    viz = new tableau.Viz(containerDiv, url, options);
+    // Create a viz object and embed it in the container div.
+  }
+  // Opens the Download dialog box
+  function showDownloadDialog() {
+    viz.showDownloadDialog();
+  }
+</script>
+
+<script>
+  initViz();
+</script>
+
+<button onclick="showDownloadDialog();">Export Dashboard</button>
+
 {% endblock %}
