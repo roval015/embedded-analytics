@@ -4,76 +4,22 @@
 <!-- <button onclick="exportToPDF()">Export to PDF</button>
 <button id="exportImage">Export to Image</button> -->
 
-<!-- MICROSOFT BI EMBEDDING USING IFRAME -->
-<!-- <iframe
-  title="sample - Page 1"
-  width="1024"
-  height="804"
-  src="https://app.powerbi.com/view?r=eyJrIjoiNjgyMDAyM2UtNzMyZS00MTBhLWE5ZGQtMzAwMWY0ZGM3NjM2IiwidCI6ImJkMDNhNzM1LTJhYTMtNGNjYS05NzIyLTJhZTQ5MjlhYjNlYyIsImMiOjEwfQ%3D%3D"
-  frameborder="0"
-  allowfullscreen="true"
-></iframe> -->
+<!-- Gets the role of the user from the database -->
+<!-- INSERT CODE HERE -->
 
-<!-- TABLUEA EMBEDDING USING SCRIPT TAG -->
-<!-- <script
-  type="text/javascript"
-  src="https://prod-apnortheast-a.online.tableau.com/javascripts/api/viz_v1.js"
-></script> -->
-
-<!-- <div class="tableauPlaceholder" style="width: 1366px; height: 795px">
-  <object class="tableauViz" width="1366" height="795" style="display: none">
-    <param
-      name="host_url"
-      value="https%3A%2F%2Fprod-apnortheast-a.online.tableau.com%2F"
-    />
-    <param name="embed_code_version" value="3" />
-    <param name="site_root" value="&#47;t&#47;ikavi" />
-    <param name="name" value="EmbedTest&#47;ProfitDashboard" />
-    <param name="tabs" value="no" />
-    <param name="toolbar" value="yes" />
-    <param name="showAppBanner" value="false" />
-  </object>
-</div> -->
-
-<!-- <script type="text/javascript">
-  function initViz() {
-    let tableauPlaceholder = document.getElementById('tableauViz');
-    let url = "https://public.tableau.com/views/EmbedTest_16606360562240/ProfitDashboard?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
-    let options = {
-      onFirstInteraction: function () {
-        workbook = viz.getWorkbook();
-        activeSheet = workbook.getActiveSheet();
-      }
-    };
-    viz = new tableau.Viz(tableauPlaceholder, url, options);
-  };
-</script> -->
-
-<!-- TABLEAU EMBEDDING USING JAVASCRIPT API -->
-<!-- <div id="vizContainer"></div> -->
-<!-- <script>initViz()</script> -->
-
-<!-- tableau embedding v3 -->
-<!-- LINK FOR DOCUMENTATION: https://help.tableau.com/current/api/embedding_api/en-us/index.html -->
-
-<!-- <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
-
-<tableau-viz id="tableauViz"       
-  src='https://public.tableau.com/views/EmbedTest_16606360562240/ProfitDashboard?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link'      
-  device="mobile" toolbar="hidden" hide-tabs disable-url-actions>
-</tableau-viz> -->
-
-<script
+<!-- if the user role is admin, show dashboard for admins -->
+{% if level == 'admin' %} 
+  <script
   type="text/javascript"
   src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"
-></script>
-<script type="text/javascript">
+  ></script>
+  <script type="text/javascript">
   var viz;
 
   function initViz() {
     var containerDiv = document.getElementById("vizContainer"),
       url =
-        "https://public.tableau.com/views/EmbedTest_16606360562240/ProfitDashboard",
+        "https://public.tableau.com/views/EmbedTest_16606360562240/ProfitDashboardAdmin?:language=en-US&:display_count=n&:origin=viz_share_link",
       options = {
         hideTabs: true,
         onFirstInteraction: function () {
@@ -89,7 +35,43 @@
   function showDownloadDialog() {
     viz.showDownloadDialog();
   }
-</script>
+  </script>
+
+<!-- if the user role is for user, show visualization for user -->
+{% elif level == 'user' %} 
+  <script
+  type="text/javascript"
+  src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"
+  ></script>
+  <script type="text/javascript">
+  var viz;
+
+  function initViz() {
+    var containerDiv = document.getElementById("vizContainer"),
+      url =
+        "https://public.tableau.com/views/TableauEmbeddingThroughJavascriptAPIUser/ProfitDashboardUser?:language=en-US&:display_count=n&:origin=viz_share_link",
+      options = {
+        hideTabs: true,
+        onFirstInteraction: function () {
+          workbook = viz.getWorkbook();
+          activeSheet = workbook.getActiveSheet();
+        }
+      };
+
+    viz = new tableau.Viz(containerDiv, url, options);
+    // Create a viz object and embed it in the container div.
+  }
+  // Opens the Download dialog box
+  function showDownloadDialog() {
+    viz.showDownloadDialog();
+  }
+  </script>
+
+<!-- do not show any visualization at all -->
+{% else %} 
+<h1>You do not have access to this visualization</h1>
+{% endif %}
+
 
 <script>
   initViz();
