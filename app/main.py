@@ -1,3 +1,6 @@
+## RUN THIS FILE TO OPEN WEB APP
+# python main.py
+
 from website import create_app
 
 app = create_app()

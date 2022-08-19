@@ -1,14 +1,9 @@
 {% extends "base.html" %} {% block title %} Home {% endblock %} {% block content
 %}
 <h1>Sample Embedded Analytics</h1>
-<!-- <button onclick="exportToPDF()">Export to PDF</button>
-<button id="exportImage">Export to Image</button> -->
-
-<!-- Gets the role of the user from the database -->
-<!-- INSERT CODE HERE -->
 
 <!-- if the user role is admin, show dashboard for admins -->
-{% if level == 'admin' %} 
+{% if role == 'admin' %} 
   <script
   type="text/javascript"
   src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"
@@ -38,7 +33,7 @@
   </script>
 
 <!-- if the user role is for user, show visualization for user -->
-{% elif level == 'user' %} 
+{% elif role == 'user' %} 
   <script
   type="text/javascript"
   src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"

@@ -5,18 +5,18 @@ import os
 
 views = Blueprint('views', __name__)
 
+# Go to HOME PAGE
+# The user needs to be logged in first before it can access the home page.
+# If not logged in, the user will be redirected to the login page.
 @views.route('/')
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+    return render_template("home.html", user=current_user, role=request.args.get('role'))
 
-# current_app.config["FILE_UPLOADS"] = r"app\website\static\uploads"
-
-
+# Go to UPLOAD PAGE
 @views.route('/upload', methods=["GET", "POST"])
 @login_required
 def upload():
-
     if request.method=="POST":
         if request.files:
             file = request.files["dataset"]
